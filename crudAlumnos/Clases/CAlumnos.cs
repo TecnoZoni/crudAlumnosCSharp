@@ -48,7 +48,7 @@ namespace crudAlumnos.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo inscribir el aulmno por un error: " + ex.ToString());
+                MessageBox.Show("No se pudo inscribir el aulmno por favor revise los campos.");
             }
         }
 
@@ -69,7 +69,7 @@ namespace crudAlumnos.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se dio de baja el alumno por un error: " + ex.ToString());
+                MessageBox.Show("No se a podido dar de baja el alumno por un error.");
             }
         }
 
@@ -86,7 +86,7 @@ namespace crudAlumnos.Clases
 
                 MySqlCommand myComand = new MySqlCommand(query, objetoConexion.establecerConexion());
                 MySqlDataReader reader = myComand.ExecuteReader();
-                MessageBox.Show("El alumno se Modifico Correctamente");
+                MessageBox.Show("El alumno se modifico Correctamente");
 
 
                 objetoConexion.cerraConexion();
@@ -94,42 +94,28 @@ namespace crudAlumnos.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo modificar el aulmno por un error: " + ex.ToString());
+                MessageBox.Show("No se pudo modificar el aulmno por un error.");
             }
         }
 
-        public void BuscarAlumnosMatricula(int matricula)
-        {
-            CConexion objetoConexion = new CConexion();
-
-            string query = "SELECT * FROM alumnos WHERE matricula LIKE '%" + matricula + "%';";
-
-            MySqlCommand myComand = new MySqlCommand(query, objetoConexion.establecerConexion());
-            MySqlDataReader reader = myComand.ExecuteReader();
-            MessageBox.Show("El alumno con la matricula"+matricula+" se encontro Correctamente.");
-
-            objetoConexion.cerraConexion();
-        }
-
-        public void BuscarAlumnos(string nombre, string apellido)
+        public void BuscarAlumnos(string nombre, DataGridView tablaAlumnos)
         {
             try
             {
                 CConexion objetoConexion = new CConexion();
-               
-                string query = "SELECT * FROM alumnos WHERE nombre LIKE '%"+nombre+ "%' OR apellido LIKE '%" + apellido + "%';";
+                string query = "SELECT * FROM alumnos WHERE nombre LIKE '%" + nombre + "%' OR apellido LIKE '%" + nombre + "%';";
+                tablaAlumnos.DataSource = null;
 
-                MySqlCommand myComand = new MySqlCommand(query, objetoConexion.establecerConexion());
-                MySqlDataReader reader = myComand.ExecuteReader();
-                MessageBox.Show("El alumno se busco Correctamente");
-
-
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, objetoConexion.establecerConexion());
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                tablaAlumnos.DataSource = dt;
                 objetoConexion.cerraConexion();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo encontrar al aulmno por un error: " + ex.ToString());
+                MessageBox.Show("No se pudo encontrar al aulmno por un error.");
             }
-        }*/
+        }
     }
 }

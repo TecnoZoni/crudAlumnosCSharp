@@ -29,6 +29,7 @@ namespace crudAlumnos
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbCarreras = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,8 +50,12 @@ namespace crudAlumnos
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnResetarTabla = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTotalAlumnos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -112,7 +117,7 @@ namespace crudAlumnos
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(156, 276);
+            this.btnBaja.Location = new System.Drawing.Point(147, 277);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(116, 33);
             this.btnBaja.TabIndex = 10;
@@ -122,7 +127,7 @@ namespace crudAlumnos
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(39, 276);
+            this.btnModificar.Location = new System.Drawing.Point(30, 277);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(111, 33);
             this.btnModificar.TabIndex = 9;
@@ -132,9 +137,9 @@ namespace crudAlumnos
             // 
             // btnInscribir
             // 
-            this.btnInscribir.Location = new System.Drawing.Point(30, 231);
+            this.btnInscribir.Location = new System.Drawing.Point(30, 232);
             this.btnInscribir.Name = "btnInscribir";
-            this.btnInscribir.Size = new System.Drawing.Size(242, 39);
+            this.btnInscribir.Size = new System.Drawing.Size(233, 39);
             this.btnInscribir.TabIndex = 8;
             this.btnInscribir.Text = "Inscribir";
             this.btnInscribir.UseVisualStyleBackColor = true;
@@ -207,23 +212,23 @@ namespace crudAlumnos
             // dgvTotalAlumnos
             // 
             this.dgvTotalAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTotalAlumnos.Location = new System.Drawing.Point(327, 45);
+            this.dgvTotalAlumnos.Location = new System.Drawing.Point(327, 73);
             this.dgvTotalAlumnos.Name = "dgvTotalAlumnos";
-            this.dgvTotalAlumnos.Size = new System.Drawing.Size(644, 289);
+            this.dgvTotalAlumnos.Size = new System.Drawing.Size(644, 523);
             this.dgvTotalAlumnos.TabIndex = 1;
             this.dgvTotalAlumnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTotalAlumnos_CellContentClick);
             this.dgvTotalAlumnos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTotalAlumnos_CellDoubleClick);
             // 
             // txtBusqueda
             // 
-            this.txtBusqueda.Location = new System.Drawing.Point(705, 15);
+            this.txtBusqueda.Location = new System.Drawing.Point(659, 44);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(167, 20);
             this.txtBusqueda.TabIndex = 7;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(878, 12);
+            this.btnBuscar.Location = new System.Drawing.Point(878, 40);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(93, 27);
             this.btnBuscar.TabIndex = 11;
@@ -235,28 +240,63 @@ namespace crudAlumnos
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(322, 14);
+            this.label7.Location = new System.Drawing.Point(322, 17);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(242, 25);
+            this.label7.Size = new System.Drawing.Size(145, 50);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Alumnos Registrados:";
+            this.label7.Text = "Alumnos \r\nRegistrados:";
+            // 
+            // btnResetarTabla
+            // 
+            this.btnResetarTabla.ForeColor = System.Drawing.Color.Red;
+            this.btnResetarTabla.Location = new System.Drawing.Point(832, 42);
+            this.btnResetarTabla.Name = "btnResetarTabla";
+            this.btnResetarTabla.Size = new System.Drawing.Size(28, 23);
+            this.btnResetarTabla.TabIndex = 13;
+            this.btnResetarTabla.Text = "x";
+            this.btnResetarTabla.UseVisualStyleBackColor = true;
+            this.btnResetarTabla.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(570, 47);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Buscar Alumno: ";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::crudAlumnos.Properties.Resources.beppo;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 340);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(272, 272);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 349);
+            this.ClientSize = new System.Drawing.Size(983, 608);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.btnResetarTabla);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.dgvTotalAlumnos);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Administracion de alumnos registrados";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTotalAlumnos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +324,9 @@ namespace crudAlumnos
         private System.Windows.Forms.TextBox txtBusqueda;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnResetarTabla;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -11,6 +11,7 @@ namespace crudAlumnos
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
 
+            cmbCarreras.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCarreras.Items.Add("Desarrollo De Software");
             cmbCarreras.Items.Add("Analista Medio Ambiente");
             cmbCarreras.Items.Add("Comercio Exterior");
@@ -20,6 +21,7 @@ namespace crudAlumnos
             cmbCarreras.Items.Add("Analista Microeletrónica");
             cmbCarreras.Items.Add("Químico Industrial");
             cmbCarreras.Items.Add("Químico Analista");
+            cmbCarreras.SelectedIndex = 0;
 
         }
 
@@ -30,40 +32,63 @@ namespace crudAlumnos
 
         private void btnInscribir_Click(object sender, EventArgs e)
         {
-            Clases.CValidaciones validarTxts = new Clases.CValidaciones();
 
-            if (validarTxts.ValidarCampos(txtMatricula, txtNombre, txtApellido, txtEdad, txtEmail, cmbCarreras))
+            bool estaDuplicado = false;
+
+            for (int i = 0; i < dgvTotalAlumnos.Rows.Count; i++)
             {
-                try
+                DataGridViewCell cell = dgvTotalAlumnos.Rows[i].Cells["matricula"];
+
+                if (cell != null && cell.Value != null)
                 {
-                    int matricula = (int)Convert.ToInt64(txtMatricula.Text);
-                    String nombre = txtNombre.Text;
-                    String apellido = txtApellido.Text;
-                    int edad = Convert.ToInt32(txtEdad.Text);
-                    String email = txtEmail.Text;
-                    String carrera = cmbCarreras.Text;
+                    string matriculaGuardada = cell.Value.ToString();
+                    string matriculaNueva = txtMatricula.Text;
 
-
-                    Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
-                    objetoAlumnos.InscribirAlumnos(matricula, nombre, apellido, edad, email, carrera);
-
-                    txtMatricula.Text = "";
-                    txtNombre.Text = "";
-                    txtApellido.Text = "";
-                    txtEdad.Text = "";
-                    txtEmail.Text = "";
-                    cmbCarreras.Text = "";
-
-                    objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Revisa los campos antes de la inscripcio, error:" + ex);
+                    if (matriculaGuardada == matriculaNueva)
+                    {
+                        estaDuplicado = true;
+                        break;
+                    }
                 }
             }
 
+            if (estaDuplicado)
+            {
+                MessageBox.Show("No se puede inscribir a un alumno con el mismo numero de matricula.");
+            }
+            else
+            {
+                Clases.CValidaciones validarTxts = new Clases.CValidaciones();
+                if (validarTxts.ValidarCampos(txtMatricula, txtNombre, txtApellido, txtEdad, txtEmail, cmbCarreras))
+                {
+                    try
+                    {
+                        int matricula = (int)Convert.ToInt64(txtMatricula.Text);
+                        String nombre = txtNombre.Text;
+                        String apellido = txtApellido.Text;
+                        int edad = Convert.ToInt32(txtEdad.Text);
+                        String email = txtEmail.Text;
+                        String carrera = cmbCarreras.Text;
 
 
+                        Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
+                        objetoAlumnos.InscribirAlumnos(matricula, nombre, apellido, edad, email, carrera);
+
+                        txtMatricula.Text = "";
+                        txtNombre.Text = "";
+                        txtApellido.Text = "";
+                        txtEdad.Text = "";
+                        txtEmail.Text = "";
+                        cmbCarreras.SelectedIndex = 0;
+
+                        objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Revisa los campos antes de la inscripcio, error:" + ex);
+                    }
+                }
+            }
         }
 
         private void btnBaja_Click(object sender, EventArgs e)
@@ -105,7 +130,7 @@ namespace crudAlumnos
                 txtApellido.Text = "";
                 txtEdad.Text = "";
                 txtEmail.Text = "";
-                cmbCarreras.Text = "";
+                cmbCarreras.SelectedIndex = 0;
 
                 objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
             }
@@ -118,30 +143,44 @@ namespace crudAlumnos
 
         private void dgvTotalAlumnos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int matricula = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
-            String nombreSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["nombre"].Value.ToString();
-            String apellidoSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["apellido"].Value.ToString();
-            int edadSeleccionada = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["edad"].Value);
-            String emailSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["email"].Value.ToString();
-            String carreraSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["carrera"].Value.ToString();
+            try
+            {
+                int matricula = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
+                String nombreSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["nombre"].Value.ToString();
+                String apellidoSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["apellido"].Value.ToString();
+                int edadSeleccionada = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["edad"].Value);
+                String emailSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["email"].Value.ToString();
+                String carreraSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["carrera"].Value.ToString();
 
-            txtMatricula.Text = matricula.ToString();
-            txtNombre.Text = nombreSeleccionado;
-            txtApellido.Text = apellidoSeleccionado;
-            txtEdad.Text = edadSeleccionada.ToString();
-            txtEmail.Text = emailSeleccionado;
-            cmbCarreras.Text = carreraSeleccionado;
+                txtMatricula.Text = matricula.ToString();
+                txtNombre.Text = nombreSeleccionado;
+                txtApellido.Text = apellidoSeleccionado;
+                txtEdad.Text = edadSeleccionada.ToString();
+                txtEmail.Text = emailSeleccionado;
+                cmbCarreras.Text = carreraSeleccionado;
+            }
+            catch
+            {
+                MessageBox.Show("Seleccione un usuario valido.");
+            }
+
+
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            int matricula = (int)Convert.ToInt64(txtBusqueda.Text);
-                Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
-                objetoAlumnos.BuscarAlumnosMatricula(matricula);
-            
+            Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
-            
+            string nombre = txtBusqueda.Text;
 
+            objetoAlumnos.BuscarAlumnos(nombre, dgvTotalAlumnos);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
+
+            objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
         }
     }
 }

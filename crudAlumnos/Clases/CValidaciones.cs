@@ -23,7 +23,7 @@ namespace crudAlumnos.Clases
             int edad;
             if (int.TryParse(texto, out edad))
             {
-                return edad >= 0 && edad < 1000;
+                return edad >= 0 && edad < 100;
             }
             return false;
         }
@@ -33,6 +33,7 @@ namespace crudAlumnos.Clases
             // Verifica que el texto tenga el formato de una dirección de correo electrónico
             return Regex.IsMatch(texto, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
         }
+
 
         public bool ValidarCampos(TextBox txtMatricula, TextBox txtNombre, TextBox txtApellido, TextBox txtEdad, TextBox txtEmail, ComboBox cmbCarrera)
         {
@@ -71,6 +72,8 @@ namespace crudAlumnos.Clases
                 MessageBox.Show("Seleccione una carrera");
                 return false;
             }
+
+
 
             // Si todas las validaciones pasan, los campos son válidos
             return true;
