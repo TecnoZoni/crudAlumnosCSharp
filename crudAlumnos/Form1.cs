@@ -23,6 +23,19 @@ namespace crudAlumnos
             cmbCarreras.Items.Add("Químico Analista");
             cmbCarreras.SelectedIndex = 0;
 
+            cmbCarrerasB.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCarrerasB.Items.Add("TODAS");
+            cmbCarrerasB.Items.Add("Desarrollo De Software");
+            cmbCarrerasB.Items.Add("Analista Medio Ambiente");
+            cmbCarrerasB.Items.Add("Comercio Exterior");
+            cmbCarrerasB.Items.Add("Administracion de Empresas");
+            cmbCarrerasB.Items.Add("Higiene y Seguridad");
+            cmbCarrerasB.Items.Add("Sistemas de Control");
+            cmbCarrerasB.Items.Add("Analista Microeletrónica");
+            cmbCarrerasB.Items.Add("Químico Industrial");
+            cmbCarrerasB.Items.Add("Químico Analista");
+            cmbCarrerasB.SelectedIndex = 0;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -113,6 +126,8 @@ namespace crudAlumnos
         {
             int matriculaSeleccionada = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
 
+
+
             Clases.CValidaciones validarTxts = new Clases.CValidaciones();
             if (validarTxts.ValidarCampos(txtMatricula, txtNombre, txtApellido, txtEdad, txtEmail, cmbCarreras))
             {
@@ -126,6 +141,7 @@ namespace crudAlumnos
                 objetoAlumnos.ModificarAlumnos(matriculaSeleccionada, nombre, apellido, edad, email, carrera);
 
                 txtMatricula.Text = "";
+                txtMatricula.Enabled = true;
                 txtNombre.Text = "";
                 txtApellido.Text = "";
                 txtEdad.Text = "";
@@ -153,6 +169,7 @@ namespace crudAlumnos
                 String carreraSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["carrera"].Value.ToString();
 
                 txtMatricula.Text = matricula.ToString();
+                txtMatricula.Enabled = false;
                 txtNombre.Text = nombreSeleccionado;
                 txtApellido.Text = apellidoSeleccionado;
                 txtEdad.Text = edadSeleccionada.ToString();
@@ -167,20 +184,59 @@ namespace crudAlumnos
 
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
-
-            string nombre = txtBusqueda.Text;
-
-            objetoAlumnos.BuscarAlumnos(nombre, dgvTotalAlumnos);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
+
+            txtBusqueda.Text = "";
+            cmbCarrerasB.SelectedIndex = 0;
         }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
+
+            string nombre = txtBusqueda.Text;
+            string carreraAbuscar = cmbCarrerasB.Text;
+
+            objetoAlumnos.BuscarAlumnos(nombre, carreraAbuscar, dgvTotalAlumnos);
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
+
+            txtMatricula.Text = "";
+            txtMatricula.Enabled = true;
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtEdad.Text = "";
+            txtEmail.Text = "";
+            cmbCarreras.SelectedIndex = 0;
+            txtBusqueda.Text = "";
+
+            objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
+        }
+
+        private void cmbCarrerasB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
+
+            string carreraAbuscar = cmbCarrerasB.Text;
+
+            if (carreraAbuscar == "TODAS")
+            {
+                objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
+            }
+            else
+            {
+                objetoAlumnos.BuscarAlumnoCarrera(carreraAbuscar, dgvTotalAlumnos);
+            }*/
+        }
+
+
     }
 }
