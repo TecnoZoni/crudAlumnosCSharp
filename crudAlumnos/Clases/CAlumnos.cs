@@ -25,7 +25,7 @@ namespace crudAlumnos.Clases
             }
             catch
             {
-                MessageBox.Show("No se mostraron los datos de la base de datos por un error: ");
+                MessageBox.Show("No se mostraron los datos de la base de datos por un error. ");
             }
         }
 

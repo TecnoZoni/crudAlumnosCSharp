@@ -31,6 +31,7 @@ namespace crudAlumnos
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.cmbCarreras = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -51,11 +52,11 @@ namespace crudAlumnos
             this.label7 = new System.Windows.Forms.Label();
             this.btnResetarTabla = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.cmbCarrerasB = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnEportarExcel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTotalAlumnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -64,6 +65,7 @@ namespace crudAlumnos
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnEportarExcel);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.cmbCarreras);
             this.groupBox1.Controls.Add(this.label6);
@@ -83,10 +85,21 @@ namespace crudAlumnos
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(292, 322);
+            this.groupBox1.Size = new System.Drawing.Size(292, 325);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Alumno";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(151, 278);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 33);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Cancelar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // cmbCarreras
             // 
@@ -128,7 +141,7 @@ namespace crudAlumnos
             // btnBaja
             // 
             this.btnBaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBaja.Location = new System.Drawing.Point(30, 271);
+            this.btnBaja.Location = new System.Drawing.Point(181, 232);
             this.btnBaja.Name = "btnBaja";
             this.btnBaja.Size = new System.Drawing.Size(111, 33);
             this.btnBaja.TabIndex = 9;
@@ -139,9 +152,9 @@ namespace crudAlumnos
             // btnModificar
             // 
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.Location = new System.Drawing.Point(147, 232);
+            this.btnModificar.Location = new System.Drawing.Point(89, 232);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(111, 33);
+            this.btnModificar.Size = new System.Drawing.Size(86, 33);
             this.btnModificar.TabIndex = 8;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -150,9 +163,9 @@ namespace crudAlumnos
             // btnInscribir
             // 
             this.btnInscribir.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInscribir.Location = new System.Drawing.Point(30, 232);
+            this.btnInscribir.Location = new System.Drawing.Point(0, 232);
             this.btnInscribir.Name = "btnInscribir";
-            this.btnInscribir.Size = new System.Drawing.Size(111, 33);
+            this.btnInscribir.Size = new System.Drawing.Size(83, 33);
             this.btnInscribir.TabIndex = 7;
             this.btnInscribir.Text = "Inscribir";
             this.btnInscribir.UseVisualStyleBackColor = true;
@@ -279,23 +292,12 @@ namespace crudAlumnos
             // pictureBox1
             // 
             this.pictureBox1.Image = global::crudAlumnos.Properties.Resources.beppo;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 340);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 343);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(272, 272);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(147, 271);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 33);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // groupBox2
             // 
@@ -312,15 +314,15 @@ namespace crudAlumnos
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Buscar Alumno: ";
             // 
-            // label8
+            // cmbCarrerasB
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(32, 36);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(121, 18);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Nombre/Apellido:";
+            this.cmbCarrerasB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbCarrerasB.FormattingEnabled = true;
+            this.cmbCarrerasB.Location = new System.Drawing.Point(175, 63);
+            this.cmbCarrerasB.Name = "cmbCarrerasB";
+            this.cmbCarrerasB.Size = new System.Drawing.Size(167, 23);
+            this.cmbCarrerasB.TabIndex = 13;
+            //this.cmbCarrerasB.SelectedIndexChanged += new System.EventHandler(this.cmbCarrerasB_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -332,21 +334,31 @@ namespace crudAlumnos
             this.label9.TabIndex = 15;
             this.label9.Text = "Carrera:";
             // 
-            // cmbCarrerasB
+            // label8
             // 
-            this.cmbCarrerasB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbCarrerasB.FormattingEnabled = true;
-            this.cmbCarrerasB.Location = new System.Drawing.Point(175, 63);
-            this.cmbCarrerasB.Name = "cmbCarrerasB";
-            this.cmbCarrerasB.Size = new System.Drawing.Size(167, 23);
-            this.cmbCarrerasB.TabIndex = 13;
-            this.cmbCarrerasB.SelectedIndexChanged += new System.EventHandler(this.cmbCarrerasB_SelectedIndexChanged);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(32, 36);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(121, 18);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Nombre/Apellido:";
+            // 
+            // btnEportarExcel
+            // 
+            this.btnEportarExcel.Location = new System.Drawing.Point(30, 271);
+            this.btnEportarExcel.Name = "btnEportarExcel";
+            this.btnEportarExcel.Size = new System.Drawing.Size(101, 46);
+            this.btnEportarExcel.TabIndex = 14;
+            this.btnEportarExcel.Text = "Exportar a Excel";
+            this.btnEportarExcel.UseVisualStyleBackColor = true;
+            this.btnEportarExcel.Click += new System.EventHandler(this.btnEportarExcel_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 608);
+            this.ClientSize = new System.Drawing.Size(983, 619);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
@@ -397,6 +409,7 @@ namespace crudAlumnos
         private System.Windows.Forms.ComboBox cmbCarrerasB;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnEportarExcel;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpreadsheetLight;
+using System;
 using System.Windows.Forms;
 
 namespace crudAlumnos
@@ -221,22 +222,40 @@ namespace crudAlumnos
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
         }
 
-        private void cmbCarrerasB_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        private void btnEportarExcel_Click(object sender, EventArgs e)
         {
-            /*Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
-            string carreraAbuscar = cmbCarrerasB.Text;
+            SLDocument sl = new SLDocument();
+            SLStyle style = new SLStyle();
+            style.Font.FontSize = 20;
+            style.Font.Bold = true;
 
-            if (carreraAbuscar == "TODAS")
+            int iC = 1;
+            foreach (DataGridViewColumn column in dgvTotalAlumnos.Columns) 
             {
-                objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
+                sl.SetCellValue(1, iC, column.HeaderText.ToString());
+                sl.SetCellStyle(1, iC, style);
+                iC++;
             }
-            else
+
+            int iR = 2;
+            foreach(DataGridViewRow row in dgvTotalAlumnos.Rows)
             {
-                objetoAlumnos.BuscarAlumnoCarrera(carreraAbuscar, dgvTotalAlumnos);
-            }*/
+                if (row.Cells[0].Value != null)
+                {
+                    sl.SetCellValue(iR, 1, row.Cells[0].Value.ToString());
+                    sl.SetCellValue(iR, 2, row.Cells[1].Value != null ? row.Cells[1].Value.ToString() : "");
+                    sl.SetCellValue(iR, 3, row.Cells[2].Value != null ? row.Cells[2].Value.ToString() : "");
+                    sl.SetCellValue(iR, 4, row.Cells[3].Value != null ? row.Cells[3].Value.ToString() : "");
+                    sl.SetCellValue(iR, 5, row.Cells[4].Value != null ? row.Cells[4].Value.ToString() : "");
+                    sl.SetCellValue(iR, 6, row.Cells[5].Value != null ? row.Cells[5].Value.ToString() : "");
+                    iR++;
+                }
+            }
+
+            sl.SaveAs(@"C:\Users\Admin\Desktop\Excels de Alumnos\Alumnos.xlsx");
         }
-
-
     }
 }
