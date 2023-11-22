@@ -11,6 +11,7 @@ namespace crudAlumnos.Clases
         {
             try
             {
+                //Traemos todos los alumnos guadado en la base de datos y llenamos la tabla del form
                 CConexion objetoConexion = new CConexion();
 
                 String query = "select * from alumnos";
@@ -23,9 +24,9 @@ namespace crudAlumnos.Clases
                 objetoConexion.cerraConexion();
 
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("No se mostraron los datos de la base de datos por un error. ");
+                MessageBox.Show("No se mostraron los datos de la base de datos por un error. "+ex.ToString());
             }
         }
 
@@ -33,6 +34,8 @@ namespace crudAlumnos.Clases
         {
             try
             {
+                //Insertamos un nuevo alumnos mandandole los datos del formulario y enviandoloes en la peticion a la
+                //base de datos.
                 CConexion objetoConexion = new CConexion();
 
                 String query = "insert into alumnos(matricula, nombre, apellido, edad, email, carrera)" +
@@ -46,9 +49,9 @@ namespace crudAlumnos.Clases
                 objetoConexion.cerraConexion();
 
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("No se pudo inscribir el aulmno por favor revise los campos.");
+                MessageBox.Show("No se pudo inscribir el aulmno por favor revise los campos. "+ex.ToString());
             }
         }
 
@@ -56,6 +59,7 @@ namespace crudAlumnos.Clases
         {
             try
             {
+                //Eliminamos un alumno de la base de datos pasandole la matricula que seria su Primary Key
                 CConexion objetoConexion = new CConexion();
 
                 String query = "DELETE FROM alumnos WHERE matricula='" + matricula + "';";
@@ -67,9 +71,9 @@ namespace crudAlumnos.Clases
                 objetoConexion.cerraConexion();
 
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("No se a podido dar de baja el alumno por un error.");
+                MessageBox.Show("No se a podido dar de baja el alumno por un error. "+ex.ToString());
             }
         }
 
@@ -77,6 +81,7 @@ namespace crudAlumnos.Clases
         {
             try
             {
+                //Modificamos al alumno con los datos dados desde el form utilizando la matricula como identificador
                 CConexion objetoConexion = new CConexion();
 
                 String query = "UPDATE alumnos SET nombre = '" + nombre + "', apellido = '" + apellido + "', edad = '" + edad +
@@ -92,19 +97,21 @@ namespace crudAlumnos.Clases
                 objetoConexion.cerraConexion();
 
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("No se pudo modificar el aulmno por un error.");
+                MessageBox.Show("No se pudo modificar el aulmno por un error. "+ex.ToString());
             }
         }
 
-        public void BuscarAlumnos(string nombre,string carrera, DataGridView tablaAlumnos)
+        public void BuscarAlumnos(string nombre, string carrera, DataGridView tablaAlumnos)
         {
             try
             {
                 CConexion objetoConexion = new CConexion();
                 if (carrera == "TODAS")
                 {
+                    //si la carrera seleccionada en el formulario es "TODAS" se hace una peticion solo con el nombre y apellido
+                    //del alumno y se rellena la tabla con los resultados.
                     string query = "SELECT * FROM alumnos WHERE nombre LIKE '%" + nombre + "%' OR apellido LIKE '%" + nombre + "%';";
                     tablaAlumnos.DataSource = null;
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, objetoConexion.establecerConexion());
@@ -115,6 +122,8 @@ namespace crudAlumnos.Clases
                 }
                 else
                 {
+                    //Si hay alguna carrera seleccionada se procede a buscar a los alumnos con el numbre y apellido
+                    //que esten inscriptos en esa carrera.
                     string query = "SELECT * FROM alumnos WHERE (nombre LIKE '%" + nombre + "%' OR apellido LIKE '%" + nombre + "%') AND carrera LIKE '" + carrera + "';";
                     tablaAlumnos.DataSource = null;
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, objetoConexion.establecerConexion());
@@ -123,35 +132,12 @@ namespace crudAlumnos.Clases
                     tablaAlumnos.DataSource = dt;
                     objetoConexion.cerraConexion();
                 }
-                
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo encontrar al aulmno por un error."+ex.ToString());
+                MessageBox.Show("No se pudo encontrar al aulmno por un error. " + ex.ToString());
             }
         }
-
-       /* public void BuscarAlumnoCarrera(string carrera, DataGridView tablaAlumnos)
-        {
-            try
-            {
-                CConexion objetoConexion = new CConexion();
-                string query = "SELECT * FROM alumnos WHERE carrera LIKE '" + carrera + "';";
-                tablaAlumnos.DataSource = null;
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(query, objetoConexion.establecerConexion());
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                tablaAlumnos.DataSource = dt;
-                objetoConexion.cerraConexion();
-            }
-            catch
-            {
-                MessageBox.Show("No se pueden encontrar los aulmnos por un error.");
-            }
-        }*/
-
-        
-
     }
 }

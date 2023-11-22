@@ -31,7 +31,8 @@ namespace crudAlumnos
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEportarExcel = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.cmbCarreras = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -56,7 +57,6 @@ namespace crudAlumnos
             this.cmbCarrerasB = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnEportarExcel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTotalAlumnos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,7 +66,7 @@ namespace crudAlumnos
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnEportarExcel);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnCancelar);
             this.groupBox1.Controls.Add(this.cmbCarreras);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtEmail);
@@ -90,16 +90,26 @@ namespace crudAlumnos
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Alumno";
             // 
-            // button1
+            // btnEportarExcel
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(151, 278);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 33);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnEportarExcel.Location = new System.Drawing.Point(30, 271);
+            this.btnEportarExcel.Name = "btnEportarExcel";
+            this.btnEportarExcel.Size = new System.Drawing.Size(101, 46);
+            this.btnEportarExcel.TabIndex = 14;
+            this.btnEportarExcel.Text = "Exportar a Excel";
+            this.btnEportarExcel.UseVisualStyleBackColor = true;
+            this.btnEportarExcel.Click += new System.EventHandler(this.btnEportarExcel_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(151, 278);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(85, 33);
+            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // cmbCarreras
             // 
@@ -245,9 +255,16 @@ namespace crudAlumnos
             // 
             // dgvTotalAlumnos
             // 
+            this.dgvTotalAlumnos.AllowUserToAddRows = false;
+            this.dgvTotalAlumnos.AllowUserToDeleteRows = false;
+            this.dgvTotalAlumnos.AllowUserToResizeColumns = false;
+            this.dgvTotalAlumnos.AllowUserToResizeRows = false;
             this.dgvTotalAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTotalAlumnos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvTotalAlumnos.Location = new System.Drawing.Point(327, 118);
+            this.dgvTotalAlumnos.MultiSelect = false;
             this.dgvTotalAlumnos.Name = "dgvTotalAlumnos";
+            this.dgvTotalAlumnos.ReadOnly = true;
             this.dgvTotalAlumnos.Size = new System.Drawing.Size(644, 478);
             this.dgvTotalAlumnos.TabIndex = 1;
             this.dgvTotalAlumnos.TabStop = false;
@@ -322,7 +339,6 @@ namespace crudAlumnos
             this.cmbCarrerasB.Name = "cmbCarrerasB";
             this.cmbCarrerasB.Size = new System.Drawing.Size(167, 23);
             this.cmbCarrerasB.TabIndex = 13;
-            //this.cmbCarrerasB.SelectedIndexChanged += new System.EventHandler(this.cmbCarrerasB_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -343,16 +359,6 @@ namespace crudAlumnos
             this.label8.Size = new System.Drawing.Size(121, 18);
             this.label8.TabIndex = 14;
             this.label8.Text = "Nombre/Apellido:";
-            // 
-            // btnEportarExcel
-            // 
-            this.btnEportarExcel.Location = new System.Drawing.Point(30, 271);
-            this.btnEportarExcel.Name = "btnEportarExcel";
-            this.btnEportarExcel.Size = new System.Drawing.Size(101, 46);
-            this.btnEportarExcel.TabIndex = 14;
-            this.btnEportarExcel.Text = "Exportar a Excel";
-            this.btnEportarExcel.UseVisualStyleBackColor = true;
-            this.btnEportarExcel.Click += new System.EventHandler(this.btnEportarExcel_Click);
             // 
             // Form1
             // 
@@ -404,7 +410,7 @@ namespace crudAlumnos
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnResetarTabla;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cmbCarrerasB;
         private System.Windows.Forms.Label label9;

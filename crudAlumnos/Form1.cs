@@ -1,6 +1,7 @@
-﻿using SpreadsheetLight;
+﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Windows.Forms;
+
 
 namespace crudAlumnos
 {
@@ -12,6 +13,7 @@ namespace crudAlumnos
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
 
+            //Estas son las carreras del comboBox del formulario 
             cmbCarreras.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCarreras.Items.Add("Desarrollo De Software");
             cmbCarreras.Items.Add("Analista Medio Ambiente");
@@ -24,6 +26,7 @@ namespace crudAlumnos
             cmbCarreras.Items.Add("Químico Analista");
             cmbCarreras.SelectedIndex = 0;
 
+            //Estas son las carreras del comboBox de busqueda
             cmbCarrerasB.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCarrerasB.Items.Add("TODAS");
             cmbCarrerasB.Items.Add("Desarrollo De Software");
@@ -46,7 +49,8 @@ namespace crudAlumnos
 
         private void btnInscribir_Click(object sender, EventArgs e)
         {
-
+            //Verifico las celdas de la matricula para ver si ya esta registrado el numero de matricula del alumno
+            //para no reinscribirlo.             
             bool estaDuplicado = false;
 
             for (int i = 0; i < dgvTotalAlumnos.Rows.Count; i++)
@@ -72,11 +76,15 @@ namespace crudAlumnos
             }
             else
             {
+                //Una vez se halla verificado que el alumno no esta registrado se procede con las verificaciones
+                //enviando los datos del formulario a la clase de validaciones.
                 Clases.CValidaciones validarTxts = new Clases.CValidaciones();
                 if (validarTxts.ValidarCampos(txtMatricula, txtNombre, txtApellido, txtEdad, txtEmail, cmbCarreras))
                 {
                     try
                     {
+                        //si los campos fueron validos se envian a la funcion inscribirALumnos , se reestablce el form y se
+                        //recarga la tabla
                         int matricula = (int)Convert.ToInt64(txtMatricula.Text);
                         String nombre = txtNombre.Text;
                         String apellido = txtApellido.Text;
@@ -99,7 +107,7 @@ namespace crudAlumnos
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Revisa los campos antes de la inscripcio, error:" + ex);
+                        MessageBox.Show("Revisa los campos antes de la inscripcion, error: " + ex);
                     }
                 }
             }
@@ -107,7 +115,8 @@ namespace crudAlumnos
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-
+            //Selecciono la matricula, el nombre y el apellido del alumno que se este seleccionado en la tabla (por defeco el primero)
+            //mando un mensaje de verificacioncion para la eliminacion, si es correcta ejecuto la funcion BajarAlumnos.
             int matricula = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
             String nombreSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["nombre"].Value.ToString();
             String apellidoSeleccionado = dgvTotalAlumnos.CurrentRow.Cells["apellido"].Value.ToString();
@@ -125,13 +134,16 @@ namespace crudAlumnos
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            //Al darle al boton de modificar guardo el valor de la matricula en una variable
             int matriculaSeleccionada = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
 
 
-
+            //Paso los datos por la clase de validaciones para corroborar que todo este bien
             Clases.CValidaciones validarTxts = new Clases.CValidaciones();
             if (validarTxts.ValidarCampos(txtMatricula, txtNombre, txtApellido, txtEdad, txtEmail, cmbCarreras))
             {
+                //Si todo esta bien tomo los valores del formulario y las envio a la funcion Modificar alumnos junto a todos
+                //los datos, ademas blanqueo el formulario y recargo la tabla.
                 String nombre = txtNombre.Text;
                 String apellido = txtApellido.Text;
                 int edad = Convert.ToInt32(txtEdad.Text);
@@ -160,6 +172,7 @@ namespace crudAlumnos
 
         private void dgvTotalAlumnos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Al hacer doble click en algun campo de una fila de la tabla tomo todos sus datos y los envio al form para su edicion
             try
             {
                 int matricula = (int)Convert.ToInt64(dgvTotalAlumnos.CurrentRow.Cells["matricula"].Value);
@@ -176,6 +189,7 @@ namespace crudAlumnos
                 txtEdad.Text = edadSeleccionada.ToString();
                 txtEmail.Text = emailSeleccionado;
                 cmbCarreras.Text = carreraSeleccionado;
+
             }
             catch
             {
@@ -187,6 +201,7 @@ namespace crudAlumnos
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Reinicio la tabla y dejo en blanco el texbox el combo box de busqueda
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
@@ -197,6 +212,7 @@ namespace crudAlumnos
 
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
+            //Tomo el nombre, la carrera seleccionada en el combo box y la tabla para enviarla a la funcion de Buscar
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
             string nombre = txtBusqueda.Text;
@@ -208,6 +224,7 @@ namespace crudAlumnos
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            //Borro el contenido del form y reinicio la tabla para cancelar la edicion.
             Clases.CAlumnos objetoAlumnos = new Clases.CAlumnos();
 
             txtMatricula.Text = "";
@@ -222,40 +239,60 @@ namespace crudAlumnos
             objetoAlumnos.MostrarAlumnos(dgvTotalAlumnos);
         }
 
-       
+
 
         private void btnEportarExcel_Click(object sender, EventArgs e)
         {
-
-            SLDocument sl = new SLDocument();
-            SLStyle style = new SLStyle();
-            style.Font.FontSize = 20;
-            style.Font.Bold = true;
-
-            int iC = 1;
-            foreach (DataGridViewColumn column in dgvTotalAlumnos.Columns) 
+            try
             {
-                sl.SetCellValue(1, iC, column.HeaderText.ToString());
-                sl.SetCellStyle(1, iC, style);
-                iC++;
-            }
 
-            int iR = 2;
-            foreach(DataGridViewRow row in dgvTotalAlumnos.Rows)
-            {
-                if (row.Cells[0].Value != null)
+                // Crear un objeto Excel.
+                Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
+                excel.Visible = false;
+                excel.DisplayAlerts = false;
+
+                // Crear un nuevo libro de trabajo de Excel.
+                Workbook workbook = excel.Workbooks.Add(Type.Missing);
+
+                // Crear una nueva hoja de trabajo de Excel.
+                Worksheet worksheet = (Worksheet)workbook.ActiveSheet;
+
+                // Establecer el nombre de la hoja de trabajo de Excel.
+                worksheet.Name = "Alumnos";
+
+                // Recorrer las filas y columnas del DataGridView y agregarlas a la hoja de trabajo de Excel.
+                for (int i = 1; i < dgvTotalAlumnos.Columns.Count + 1; i++)
                 {
-                    sl.SetCellValue(iR, 1, row.Cells[0].Value.ToString());
-                    sl.SetCellValue(iR, 2, row.Cells[1].Value != null ? row.Cells[1].Value.ToString() : "");
-                    sl.SetCellValue(iR, 3, row.Cells[2].Value != null ? row.Cells[2].Value.ToString() : "");
-                    sl.SetCellValue(iR, 4, row.Cells[3].Value != null ? row.Cells[3].Value.ToString() : "");
-                    sl.SetCellValue(iR, 5, row.Cells[4].Value != null ? row.Cells[4].Value.ToString() : "");
-                    sl.SetCellValue(iR, 6, row.Cells[5].Value != null ? row.Cells[5].Value.ToString() : "");
-                    iR++;
+                    worksheet.Cells[1, i] = dgvTotalAlumnos.Columns[i - 1].HeaderText;
                 }
-            }
 
-            sl.SaveAs(@"C:\Users\Admin\Desktop\Excels de Alumnos\Alumnos.xlsx");
+                for (int i = 0; i < dgvTotalAlumnos.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dgvTotalAlumnos.Columns.Count; j++)
+                    {
+                        if (dgvTotalAlumnos.Rows[i].Cells[j].Value != null)
+                        {
+                            worksheet.Cells[i + 2, j + 1] = dgvTotalAlumnos.Rows[i].Cells[j].Value.ToString();
+                        }
+                        else
+                        {
+                            worksheet.Cells[i + 2, j + 1] = string.Empty;
+                        }
+
+                    }
+                }
+
+                // Guardar el archivo de Excel y cerrar el objeto Excel.
+                workbook.SaveAs(@"C:\Users\Admin\Desktop\Excels de Alumnos\Alumnos.xlsx");
+                workbook.Close();
+                excel.Quit();
+                MessageBox.Show("Se exporto a Excel con exito.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo exportar a excel por un error: " + ex.ToString());
+            }
         }
+
     }
 }
